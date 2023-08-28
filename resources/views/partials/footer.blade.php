@@ -6,25 +6,13 @@
                 document.write(new Date().getFullYear());
             </script>
             , made with ❤️ by
-            <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
+            <a href="https://github.com/ioncrisa2" target="_blank" class="footer-link fw-bolder">ioncrisa</a>
         </div>
         <div>
-            <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-            <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
-
-            <a
-                href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                target="_blank"
-                class="footer-link me-4"
-            >Documentation</a
-            >
-
-            <a
-                href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-                target="_blank"
-                class="footer-link me-4"
-            >Support</a
-            >
+            Repositories by <i class='bx bxl-github'></i>
+            <a href="https://github.com/ioncrisa2" class="footer-link me-4" target="_blank">
+                ioncrisa2
+            </a>
         </div>
     </div>
 </footer>

@@ -3,7 +3,7 @@
 @section('content')
 <div class="row">
     <div class="col">
-        Daftar siswa
+       Biaya -> DPP
     </div>
 </div>
 @endsection

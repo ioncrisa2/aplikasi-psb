@@ -9,8 +9,10 @@
                 <div class="col-sm-4">
 
 
-                    <x-dashboard-card title="Total Siswa Terdaftar" detail="siswa" item="20 orang"
-                        icon="{{ asset('assets/img/icons/unicons/cc-success.png') }}" />
+                    <x-dashboard-card
+                        title="Total Siswa Terdaftar" detail="siswa"
+                        item="20 orang" icon="{{ asset('assets/img/icons/unicons/cc-success.png') }}"
+                    />
 
                 </div>
             </div>
