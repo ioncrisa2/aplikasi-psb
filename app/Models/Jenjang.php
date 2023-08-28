@@ -18,7 +18,7 @@ class Jenjang extends Model
 
     public function bmp(): BelongsTo
     {
-        return $this->belongsTo(BMP::class);
+        return $this->belongsTo(BMP::class,'jenjang_id');
     }
 
     public function dpp(): BelongsTo

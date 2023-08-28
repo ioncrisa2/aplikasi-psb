@@ -32,6 +32,9 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::prefix('biaya')->group(function(){
         Route::get('perlengkapan', [PerlengkapanController::class,'index'])->name('perlengkapan.index');
+        Route::get('perlengkapan/create',[PerlengkapanController::class,'create'])->name('perlengkapan.create');
+        Route::post('perkengkapan/store', [PerlengkapanController::class,'store'])->name('perlengkapan.store');
+
         Route::get('dana-pendidikan', [DPPController::class,'index'])->name('data-pendidikan.index');
         Route::get('sistem-bayar', [SistemBayarController::class,'index'])->name('sistem-bayar.index');
     });

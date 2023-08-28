@@ -18,6 +18,6 @@ class BMP extends Model
 
     public function jenjang(): HasOne
     {
-        return $this->hasOne(Jenjang::class);
+        return $this->hasOne(Jenjang::class,'id');
     }
 }
