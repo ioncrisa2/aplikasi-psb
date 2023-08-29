@@ -13,10 +13,8 @@ return new class extends Migration
     {
         Schema::create('orang_tua', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_ibu');
-            $table->string('nama_ayah');
-            $table->string('tlpn_ibu');
-            $table->string('tlpn_ayah');
+            $table->string('nama_orangtua');
+            $table->string('tlpn_orangtua');
             $table->timestamps();
         });
     }

@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [FormController::class,'index']);
 Route::post('/jenjang',[FormController::class,'jenjangInput'])->name('jenjang-input');
 Route::get('identitas-siswa',[FormController::class,'dataSiswa'])->name('identitas-siswa');
+Route::post('identitas-siswa',[FormController::class,'uploadDataSiswa'])->name('identitas-siswa.upload');
 Route::get('upload-rapot',[FormController::class,'uploadRapot'])->name('upload-rapot');
 Route::get('detail-biaya',[FormController::class,'detailBiaya'])->name('detail-biaya');
 Route::get('sistem-bayar',[FormController::class,'sistemBayar'])->name('sistem-bayar');

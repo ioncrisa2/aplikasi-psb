@@ -12,7 +12,7 @@ class OrangTua extends Model
     protected $table = 'orang_tua';
 
     protected $fillable = [
-        'nama_ibu','nama_ayah','tlpn_ibu','tlpn_ayah'
+        'nama_orangtua','tlp_orangtua'
     ];
 
 }
