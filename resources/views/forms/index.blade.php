@@ -1,61 +1,29 @@
 @extends('layouts.front.app')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center align-items-center w-auto h-auto">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> <!-- Adjust the column width as needed -->
-                <div class="card mb-4">
-                    <div class="card-body text-center">
-                        <h1>Form Pendaftaran Siswa Baru Sekolah Methodist 2 Palembang</h1>
-                        <hr class="border border-dark border-3">
-                        <blockquote class="blockquote">
-                            <p>Pastikan email yang Bapak/Ibu gunakan masih aktif dan dapat di akses. Setelah mengisi form
-                                ini,
-                                maka secara automatis Bapak/Ibu akan menerima email yang berisi file formulir yang sudah
-                                Bapak/Ibu isi. Email yang telah diterima boleh disimpan sebagai bukti bahwa Bapak/Ibu telah
-                                mengisi Formulir ini. Terima Kasih.
-                            </p>
-                        </blockquote>
-                    </div>
-                </div>
+    <form method="POST" action="{{ route('jenjang-input') }}" class="appointment-form" id="appointment-form">
+        @csrf
+        <img src="{{ asset('logo-sekolah.png') }}" alt="logo sekolah" width="250">
+        <h2>Form Pendaftaran Siswa baru Sekolah Methodist 2</h2>
+        <div class="form-group-1">
+            <h3>Pilih Jenjang sekolah</h3>
+            <div class="select-list">
+                <select name="jenjang" class="border-bottom" id="jenjang" onclick="handleJenjangChange()">
+                    <option slected value="">--- Pilih jenjang sekolah ---</option>
+                    <option value="1">Taman Kanak Kanak (TK)</option>
+                    <option value="2">Sekolah Dasar (SD)</option>
+                    <option value="3">Sekolah Mengenah Pertama (SMP)</option>
+                    <option value="4">Sekolah Menengah Atas (SMA)</option>
+                    <option value="smk">Sekolah Menengah Kejuruan (SMK)</option>
+                </select>
             </div>
-            <form action="{{ route('jenjang-input') }}" method="POST">
-                @csrf
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-3">
-                    <div class="card">
-                        <div class="card-header" style="background-color: inherit; border: none;">
-                            <h3>Pilih Jenjang Siswa</h3>
-                        </div>
-                        <div class="card-body">
-
-                            <div class="mb-3 row d-flex align-items-center">
-                                <div class="col-sm-12">
-                                    <div class="mt-4 mb-3">
-                                        <select class="form-select form-select-lg" id="jenjang"
-                                            onchange="handleJenjangChange()" aria-label="Jenjang Sekolah" name="jenjang">
-                                            <option selected>Pilih jenjang siswa</option>
-                                            <option value="tk">TK</option>
-                                            <option value="sd">SD</option>
-                                            <option value="smp">SMP</option>
-                                            <option value="sma">SMA</option>
-                                            <option value="smk">SMK</option>
-                                        </select>
-                                    </div>
-                                    <div class="mt-4 mb-3" id="jurusanContainer">
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <button class="btn btn-primary btn-lg" type="submit">Lanjutkan</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-
         </div>
-    </div>
+        <div id="jurusanContainer" class="select-list"></div>
+
+        <div class="form-submit d-flex justify-content-end">
+            <button type="submit" id="submit" class="btn btn-primary">Lanjutkan</button>
+        </div>
+    </form>
 @endsection
 
 @section('script')
@@ -65,22 +33,20 @@
             const jurusan = document.getElementById('jurusanContainer');
             const value = selectedJenjang.value;
 
-
             if (value === 'smk') {
-                const jurusanLabel = document.createElement('label');
+                const jurusanLabel = document.createElement('h3');
                 jurusanLabel.textContent = 'Pilih Jurusan Bagi Jenjang SMK';
-                jurusanLabel.setAttribute('for', 'jurusan smk');
                 jurusan.appendChild(jurusanLabel);
 
                 const jurusanSelect = document.createElement('select');
-                jurusanSelect.className = 'form-select form-select-lg';
+                jurusanSelect.classList = 'border-bottom'
                 jurusanSelect.setAttribute('aria-label', 'Pilih jurusan untuk smk');
                 jurusanSelect.setAttribute('name', 'jurusan');
                 jurusanSelect.innerHTML = `
-                <option selected>Pilih Jurusan SMK</option>
-                <option value="tkj">Teknik Komputer Jaringan (TKJ)</option>
-                <option value="bd">Bisnis Digital (BD)</option>
-            `;
+                    <option selected>Pilih Jurusan SMK</option>
+                    <option value="tkj">Teknik Komputer Jaringan (TKJ)</option>
+                    <option value="bd">Bisnis Digital (BD)</option>
+                `;
                 jurusan.appendChild(jurusanSelect);
             }
         }

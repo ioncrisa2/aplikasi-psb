@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Jenjang extends Model
 {
@@ -12,18 +13,20 @@ class Jenjang extends Model
 
     protected $table = 'jenjang';
 
+    protected $primaryKey = 'jenjang_id';
+
     protected $fillable = [
         'nama','jurusan'
     ];
 
-    public function bmp(): BelongsTo
+    public function bmp(): HasOne
     {
-        return $this->belongsTo(BMP::class,'jenjang_id');
+        return $this->HasOne(BMP::class,'id');
     }
 
-    public function dpp(): BelongsTo
+    public function dpp(): HasOne
     {
-        return $this->belongsTo(DPP::class);
+        return $this->hasOne(DPP::class,'id');
     }
 
     public function kriteria(): BelongsTo

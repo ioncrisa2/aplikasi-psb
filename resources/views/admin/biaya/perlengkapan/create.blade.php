@@ -6,6 +6,15 @@
             <div class="card mb-4">
                 <h5 class="card-header">Buat Perlengkapan Baru</h5>
                 <div class="card-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <form action="{{ route('perlengkapan.store') }}" method="POST">
                         @csrf
                         <div class="mb-3">
@@ -30,11 +39,11 @@
                         </div>
                         <div class="mb-3">
                             <label for="jenjang" class="form-label">Jenjang Sekolah</label>
-                            <select class="form-select @error('jenjang') is-invalid @enderror" id="jenjang" name="jenjang_id"
-                                aria-label="Default select example">
+                            <select class="form-select @error('jenjang') is-invalid @enderror" id="jenjang"
+                                name="jenjang_id" aria-label="Default select example">
                                 <option selected="">---Pilih Jenjang Pendidikan---</option>
                                 @foreach ($jenjang as $data)
-                                    <option value="{{ $data->id }}">
+                                    <option value="{{ $data->jenjang_id }}">
                                         {{ $data->nama }}{{ $data->jurusan ? " - {$data->jurusan}" : '' }}</option>
                                 @endforeach
                             </select>

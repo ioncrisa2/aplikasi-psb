@@ -31,7 +31,7 @@ class JenjangSeeder extends Seeder
 
         $tkj = new Jenjang();
         $tkj->nama = 'SMK';
-        $tkj->jurusan = 'Teknik Komputer Jaringa';
+        $tkj->jurusan = 'Teknik Komputer Jaringan';
         $tkj->save();
 
         $bd = new Jenjang();

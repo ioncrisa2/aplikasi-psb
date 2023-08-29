@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('sistem_bayar', function (Blueprint $table) {
             $table->id();
             $table->string('skema');
+            $table->text('keterangan');
             $table->timestamps();
         });
     }

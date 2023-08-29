@@ -13,7 +13,7 @@ class SistemBayar extends Model
     protected $table = 'sistem_bayar';
 
     protected $fillable = [
-        'skema'
+        'skema','keterangan'
     ];
 
     public function siswa(): BelongsTo
