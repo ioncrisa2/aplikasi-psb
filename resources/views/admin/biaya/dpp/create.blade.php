@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-12 col-md-8 col-sm-12 col-xs-12">
             <div class="card mb-4">
-                <h5 class="card-header">Buat Dana Pengembangan Pendidikan</h5>
+                <h5 class="card-header">Buat Dana Partisipasi Pendidikan</h5>
                 <div class="card-body">
                     @if ($errors->any())
                         <div class="alert alert-danger">
@@ -56,7 +56,7 @@
 
                         <div class="mb-2 mt-2">
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <a class="btn btn-secondary me-md-2" href="{{ route('perlengkapan.index') }}">
+                                <a class="btn btn-secondary me-md-2" href="{{ route('dana-pendidikan.index') }}">
                                     Kembali
                                 </a>
                                 <button class="btn btn-primary" type="submit">Submit</button>

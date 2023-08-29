@@ -10,7 +10,7 @@
                 Sekolah selengkap-lengkapnya (tanpa Cover) dalam 1 file dengan format PDF/DOC/DOCX dan ukuran maksimal 10mb.
                 Mohon untuk memperhatikan kualitas dokumen yang dikirim sehingga kami dapat memverifikasi dengan
                 mudah</p>
-            <input class="form-control" type="file" id="formFile">
+            <input class="border-bottom-2" type="file" id="formFile">
         </div>
 
 

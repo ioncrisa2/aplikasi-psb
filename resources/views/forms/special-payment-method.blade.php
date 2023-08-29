@@ -13,7 +13,7 @@
 @endsection
 
 @section('content')
-    <form action="{{ route('identitas-siswa') }}" method="GET" class="appointment-form" id="appointment-form">
+    <form action="{{ route('verifikasi-form') }}" method="GET" class="appointment-form" id="appointment-form">
         @csrf
 
         <img src="{{ asset('logo-sekolah.png') }}" alt="logo sekolah" width="200">
@@ -36,21 +36,36 @@
                     </h2>
                     <div id="panelsStay{{ $key }}-collapseOne" class="accordion-collapse collapse show">
                         <div class="accordion-body">
-                           {!! $value->keterangan !!}
+                            {!! $value->keterangan !!}
                         </div>
                     </div>
                 </div>
             @endforeach
         </div>
 
-        <p class="text-dark mt-1 mb-2 fw-bolder">Pembayaran Dapat Dilakukan <strong>1x24jam</strong> setelah menerima nomor VA mulai jam 10.00 WIB.
+        <p class="text-dark mt-1 mb-2 fw-bolder">Pembayaran Dapat Dilakukan <strong>1x24jam</strong> setelah menerima nomor
+            VA mulai jam 10.00 WIB.
             Untuk informasi lebih lanjut mengenai pendaftaran online silahkan hubungi kami di 0711-351473.
         </p>
+
+        <div class="mt-2 mb-4 m-0 text-dark">
+            <div class="form-group-1">
+                <h3>Sistem Pembayaran yang dipilih</h3>
+                <div class="select-list">
+                    <select name="sistembayar" class="form-select custom-select" id="sistembayar">
+                        <option slected value="">--- Pilih sistem bayar ---</option>
+                        @foreach ($sistembayar as $key => $value)
+                            <option value="{{ $value->id }}">{{ $value->skema }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
 
 
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <a class="btn btn-light" href="{{ route('detail-biaya') }}">Kembali</a>
-            <button class="btn btn-primary btn-lg" type="submit">Lanjutkan</button>
+            <button class="btn btn-primary" type="submit">Lanjutkan</button>
         </div>
     </form>
 @endsection

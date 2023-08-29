@@ -43,7 +43,7 @@
                 </li>
                 <li class="menu-item {{ request()->is('biaya/dana-pendidikan') ? 'active' : '' }}">
                     <a href="{{ route('dana-pendidikan.index') }}" class="menu-link">
-                        <div data-i18n="Notifications">Dana Pengembangan Pendidikan</div>
+                        <div data-i18n="Notifications">Dana Partisipasi Pendidikan</div>
                     </a>
                 </li>
                 <li class="menu-item {{ request()->is('biaya/sistem-bayar') ? 'active' : '' }}">

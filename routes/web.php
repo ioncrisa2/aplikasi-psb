@@ -25,6 +25,7 @@ Route::get('identitas-siswa',[FormController::class,'dataSiswa'])->name('identit
 Route::get('upload-rapot',[FormController::class,'uploadRapot'])->name('upload-rapot');
 Route::get('detail-biaya',[FormController::class,'detailBiaya'])->name('detail-biaya');
 Route::get('sistem-bayar',[FormController::class,'sistemBayar'])->name('sistem-bayar');
+Route::get('verifikasi-form',[FormController::class,'verifikasiFormulir'])->name('verifikasi-form');
 
 Route::group(['middleware' => 'auth'], function() {
     //route dashboard

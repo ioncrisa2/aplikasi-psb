@@ -3,7 +3,7 @@
 @section('content')
     <div class="card h-45">
         <h5 class="card-header d-flex justify-content-between align-items-center">
-            Dana Pengembangan Pendidikan
+            Dana Partisipasi Pendidikan
             <a class="btn btn-primary" href="{{ route('dana-pendidikan.create') }}">&plus; Tambah Data</a>
         </h5>
         <div class="container">
@@ -24,7 +24,7 @@
                     </select>
                 </div>
                 <div class="table-responsive text-nowrap mb-4">
-                    <table class="table table-bordered" id="table">
+                    <table class="table table-sm table-bordered" id="table">
                         <thead>
                             <tr>
                                 <th class="text-center" width="25%">Jenjang</th>

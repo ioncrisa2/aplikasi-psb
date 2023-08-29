@@ -19,9 +19,6 @@ class FormController extends Controller
     {
         if (isset($request->jenjang)) {
             session(['jenjang' => $request->jenjang]);
-            if (isset($request->jurusan)) {
-                session(['jurusan' => $request->jurusan]);
-            }
         }
 
         return redirect()->route('identitas-siswa');
@@ -29,6 +26,7 @@ class FormController extends Controller
 
     public function dataSiswa(Request $request)
     {
+
         return view('forms.student-data');
     }
 
@@ -41,9 +39,10 @@ class FormController extends Controller
     {
         $dpp = DPP::where('jenjang_id',session()->get('jenjang'))->first();
         $bmp = DB::select("SELECT * from bmp where jenjang_id = ?",[session()->get('jenjang')]);
+        $totalBMP = BMP::where('jenjang_id',session()->get('jenjang'))->sum('harga');
         return view('forms.detail-cost', [
             'data' => $bmp,
-            'total' => BMP::sum('harga'),
+            'total' => $totalBMP,
             'dpp' => $dpp,
         ]);
     }
@@ -56,5 +55,10 @@ class FormController extends Controller
             'sistembayar' => $sistemBayar,
 
         ]);
+    }
+
+    public function verifikasiFormulir()
+    {
+        return view('forms.verification-form');
     }
 }
