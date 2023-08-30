@@ -56,23 +56,17 @@ class FormController extends Controller
 
         if($request->file('akta_kk')){
             $berkas = $request->file('akta_kk');
-            $berkas->storeAs('berkas',$berkas->hashName());
+            $originalName = $berkas->getClientOriginalName();
+            $timestamp = time();
 
+            $newFileName = $timestamp .'-'. $originalName;
+
+            $berkas->move(public_path('berkas'),$newFileName);
             $saveBerkas = new Berkas();
-            $saveBerkas->nama_file = $berkas->hashName();
+            $saveBerkas->nama_file = $newFileName;
             $saveBerkas->save();
         }
 
-        $siswa = new Siswa();
-        $siswa->email = $request->email;
-        $siswa->nama_lengkap = $request->nama_lengkap;
-        $siswa->jenis_kelamin = $request->jenis_kelamin;
-        $siswa->kebutuhan_khusus = $request->kebutuhan_khusus;
-        $siswa->tempat_lahir = $request->tempat_lahir;
-        $siswa->tanggal_lahir = $request->tanggal_lahir;
-        $siswa->berkas_id = $saveBerkas->id;
-        $siswa->rapor_id =
-        $siswa->save();
 
         $orangtua = new OrangTua();
         $orangtua->nama_orangtua = $request->nama_orangtua;
@@ -91,6 +85,17 @@ class FormController extends Controller
         $detailSiswa->alamat_rumah = $request->alamat_rumah;
         $detailSiswa->telepon = $request->tlp_orangtua;
         $detailSiswa->save();
+
+        $siswa = new Siswa();
+        $siswa->email = $request->email;
+        $siswa->nama_lengkap = $request->nama_lengkap;
+        $siswa->jenis_kelamin = $request->jenis_kelamin;
+        $siswa->kebutuhan_khusus = $request->kebutuhan_khusus;
+        $siswa->tempat_lahir = $request->tempat_lahir;
+        $siswa->tanggal_lahir = $request->tanggal_lahir;
+        $siswa->berkas_id = $saveBerkas->id;
+        $siswa->detailsiswa_id = $detailSiswa->id;
+        $siswa->save();
 
         return redirect()->route('upload-rapot');
 
