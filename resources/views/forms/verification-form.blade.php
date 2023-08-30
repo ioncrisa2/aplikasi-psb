@@ -1,21 +1,7 @@
 @extends('layouts.front.app')
 
-@section('style')
-    <style>
-        .cost-cell {
-            text-align: right;
-        }
-
-        .cost-cell span {
-            margin-left: 5px;/
-        }
-    </style>
-@endsection
-
 @section('content')
-    <form action="{{ route('identitas-siswa') }}" method="GET" class="appointment-form" id="appointment-form">
-        @csrf
-
+    <form action="{{ route('done') }}" method="GET" class="appointment-form" id="appointment-form">
         <img src="{{ asset('logo-sekolah.png') }}" alt="logo sekolah" width="200">
         <p class="h3 text-dark text-center mb-4 fw-bold">Verifikasi Pengisian Formulir</p>
 
@@ -29,7 +15,6 @@
         </p>
 
         <div class="d-grid gap-2 d-md-flex align-items-center justify-content-md-end">
-            <a class="btn btn-light" href="{{ route('sistem-bayar') }}">Kembali</a>
             <a class="btn btn-danger" href="/">Batal</a>
             <button class="btn btn-primary" type="submit">Konfirmasi</button>
         </div>

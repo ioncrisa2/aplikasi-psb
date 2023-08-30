@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Berkas extends Model
 {
@@ -12,11 +13,10 @@ class Berkas extends Model
 
     protected $table = 'berkas';
 
-    protected $fillable = [
-        'nama_file'
-    ];
+    protected $guarded = [""];
 
-    public function siswas(): BelongsTo
+
+    public function siswa(): BelongsTo
     {
         return $this->belongsTo(Siswa::class,'berkas_id');
     }

@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\DataSiswa;
-use App\Models\Berkas;
 use App\Models\BMP;
-use App\Models\DetailSiswa;
 use App\Models\DPP;
-use App\Models\OrangTua;
-use App\Models\Sekolah;
-use App\Models\SistemBayar;
+use App\Models\Rapor;
 use App\Models\Siswa;
+use App\Models\Berkas;
+use App\Models\Sekolah;
+use App\Models\OrangTua;
+use App\Models\DetailSiswa;
+use App\Models\SistemBayar;
 use Illuminate\Http\Request;
+use App\Http\Requests\DataSiswa;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class FormController extends Controller
 {
@@ -54,14 +56,14 @@ class FormController extends Controller
             'kriteria' => 'required'
         ]);
 
-        if($request->file('akta_kk')){
+        if ($request->file('akta_kk')) {
             $berkas = $request->file('akta_kk');
             $originalName = $berkas->getClientOriginalName();
             $timestamp = time();
 
-            $newFileName = $timestamp .'-'. $originalName;
+            $newFileName = $timestamp . '-' . $originalName;
 
-            $berkas->move(public_path('berkas'),$newFileName);
+            $berkas->move(public_path('berkas'), $newFileName);
             $saveBerkas = new Berkas();
             $saveBerkas->nama_file = $newFileName;
             $saveBerkas->save();
@@ -95,26 +97,61 @@ class FormController extends Controller
         $siswa->tanggal_lahir = $request->tanggal_lahir;
         $siswa->berkas_id = $saveBerkas->id;
         $siswa->detailsiswa_id = $detailSiswa->id;
+        $siswa->jenjang_id = session()->get('jenjang');
         $siswa->save();
 
-        return redirect()->route('upload-rapot');
+        session(['siswa_id' => $siswa->id]);
 
+        return redirect()->route('upload-rapot');
     }
 
-    public function uploadRapot(Request $request)
+    public function uploadRapot()
     {
         return view('forms.report-upload');
     }
 
+    public function uploadDataRapot(Request $request)
+    {
+        $request->validate(['rapot' => 'required']);
+
+        if($request->file('rapot')){
+            $fileRapor = $request->file('rapot');
+            $originalName = $fileRapor->getClientOriginalName();
+            $newFileName = time() . '-' . $originalName;
+
+            // Move the uploaded rapot file to a directory
+            $fileRapor->move(public_path('rapot'), $newFileName);
+        }
+
+        $rapor = new Rapor();
+        $rapor->file_rapor = $newFileName;
+        $rapor->save();
+
+        $siswa = Siswa::findOrFail(session()->get('siswa_id'));
+        $siswa->rapor_id = $rapor->id;
+        $siswa->save();
+
+        return redirect()->route('detail-biaya');
+    }
+
     public function detailBiaya()
     {
-        $dpp = DPP::where('jenjang_id',session()->get('jenjang'))->first();
-        $bmp = DB::select("SELECT * from bmp where jenjang_id = ?",[session()->get('jenjang')]);
-        $totalBMP = BMP::where('jenjang_id',session()->get('jenjang'))->sum('harga');
+        $dpp = DPP::where('jenjang_id', session()->get('jenjang'))->first();
+        $bmp = DB::select("SELECT * FROM bmp WHERE jenjang_id = ?", [session()->get('jenjang')]);
+        $totalBMP = BMP::where('jenjang_id', session()->get('jenjang'))->sum('harga');
+
+        $diskonDpp1 = ($dpp->diskon / 100) * $dpp->harga;
+        $diskonDpp2 = (10/100) * $diskonDpp1;
+        $totalDiskon = $diskonDpp1 + $diskonDpp2;
+        $finalDpp = $dpp->harga - $totalDiskon;
+        $totalHarga = $finalDpp + $totalBMP;
+
         return view('forms.detail-cost', [
             'data' => $bmp,
             'total' => $totalBMP,
             'dpp' => $dpp,
+            'finalDPP' => $finalDpp,
+            'totalHarga' => $totalHarga
         ]);
     }
 
@@ -124,12 +161,27 @@ class FormController extends Controller
 
         return view('forms.special-payment-method', [
             'sistembayar' => $sistemBayar,
-
         ]);
+    }
+
+    public function uploadSistemBayar(Request $request)
+    {
+        $request->validate(['sistembayar' => 'required']);
+
+        $siswa = Siswa::findOrFail(session()->get('siswa_id'));
+        $siswa->sistembayar_id = $request->sistembayar;
+        $siswa->save();
+
+        return redirect()->route('verifikasi-form');
     }
 
     public function verifikasiFormulir()
     {
         return view('forms.verification-form');
+    }
+
+    public function done()
+    {
+        return view('forms.index');
     }
 }

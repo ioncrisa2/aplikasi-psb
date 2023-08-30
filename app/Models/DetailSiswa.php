@@ -18,18 +18,20 @@ class DetailSiswa extends Model
         'orangtua_id','sekolah_id','alamat_rumah','telepon'
     ];
 
+    protected $with = ['orangTua','sekolah','siswa'];
+
     public function siswa(): BelongsTo
     {
-        return $this->belongsTo(Siswa::class);
+        return $this->belongsTo(Siswa::class,'detailsiswa_id');
     }
 
-    public function orangTua(): HasMany
+    public function orangTua(): HasOne
     {
-        return $this->hasMany(OrangTua::class);
+        return $this->hasOne(OrangTua::class,'id');
     }
 
     public function sekolah(): HasOne
     {
-        return $this->hasOne(Sekolah::class);
+        return $this->hasOne(Sekolah::class,'id');
     }
 }

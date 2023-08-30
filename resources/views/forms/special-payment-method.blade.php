@@ -13,7 +13,7 @@
 @endsection
 
 @section('content')
-    <form action="{{ route('verifikasi-form') }}" method="GET" class="appointment-form" id="appointment-form">
+    <form action="{{ route('sistem-bayar.upload') }}" method="POST" class="appointment-form" id="appointment-form">
         @csrf
 
         <img src="{{ asset('logo-sekolah.png') }}" alt="logo sekolah" width="200">
@@ -64,7 +64,6 @@
 
 
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <a class="btn btn-light" href="{{ route('detail-biaya') }}">Kembali</a>
             <button class="btn btn-primary" type="submit">Lanjutkan</button>
         </div>
     </form>

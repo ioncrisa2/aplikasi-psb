@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Siswa extends Model
 {
@@ -13,27 +14,29 @@ class Siswa extends Model
     protected $table = 'siswa';
 
     protected $fillable = [
-        'email','nama_lengkap','jenis_kelamin','kebutuhan_khusus','tempat_lahir',
-        'detailsiswa_id','berkas_id','rapor_id','sistembayar_id'
+        'email', 'nama_lengkap', 'jenis_kelamin', 'kebutuhan_khusus', 'tempat_lahir',
+        'detailsiswa_id', 'berkas_id', 'rapor_id', 'sistembayar_id'
     ];
+
+    protected $with = ['detail', 'berkas', 'rapor', 'sistemBayar'];
 
     public function detail(): HasOne
     {
-        return $this->hasOne(DetailSiswa::class);
+        return $this->hasOne(DetailSiswa::class,'id');
     }
 
-    public function berkas(): hasOne
+    public function berkas(): HasOne
     {
-        return $this->hasOne(Berkas::class);
+        return $this->hasOne(Berkas::class,'id');
     }
 
     public function rapor(): HasOne
     {
-        return $this->hasOne(Rapor::class);
+        return $this->hasOne(Rapor::class,'id');
     }
 
     public function sistemBayar(): HasOne
     {
-        return $this->hasOne(SistemBayar::class);
+        return $this->hasOne(SistemBayar::class,'id');
     }
 }

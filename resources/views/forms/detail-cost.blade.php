@@ -1,7 +1,7 @@
 @extends('layouts.front.app')
 
 @section('content')
-    <form action="{{ route('sistem-bayar') }}" method="GET" class="appointment-form" id="appointment-form">
+    <form class="appointment-form" id="appointment-form">
         @csrf
 
         <img src="{{ asset('logo-sekolah.png') }}" alt="logo sekolah" width="200">
@@ -41,15 +41,8 @@
         <p class="h3 text-dark text-center mb-4 mt-5 fw-bolder">RINCIAN BIAYA YANG HARUS DIBAYAR</p>
         <table class="table table-borderless text-dark">
             <tr>
-                @php
-                    $diskon1 = ($dpp->diskon / 100) * $dpp->harga;
-                    $diskon2 = (10/100) * $diskon1;
-                    $totalDiskon = $diskon1 + $diskon2;
-                    $discountedDpp = $dpp->harga - $totalDiskon;
-                    $totalDpp = $total + $discountedDpp
-                @endphp
                 <th width="75%">DPP Rp. {{ $dpp->harga }} - Potongan {{ $dpp->diskon }}% + 10%</th>
-                <td width="25%">Rp {{ number_format($dpp->harga - $totalDiskon) }}</td>
+                <td width="25%">Rp {{ number_format($finalDPP) }}</td>
             </tr>
             <tr class="border-bottom">
                 <th width="75%">Biaya Pendaftaran</th>
@@ -57,7 +50,7 @@
             </tr>
             <tr>
                 <th width="75%">Total</th>
-                <td width="25%">Rp. {{ number_format($total + $totalDpp) }}</td>
+                <td width="25%">Rp. {{ number_format($totalHarga) }}</td>
             </tr>
         </table>
 
@@ -68,8 +61,7 @@
 
 
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <a class="btn btn-light" href="{{ route('upload-rapot') }}">Kembali</a>
-            <button class="btn btn-primary" type="submit">Lanjutkan</button>
+            <a class="btn btn-primary" href="{{ route('sistem-bayar') }}">Lanjutkan</a>
         </div>
     </form>
 @endsection
