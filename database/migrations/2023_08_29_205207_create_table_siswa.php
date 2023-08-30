@@ -21,8 +21,8 @@ return new class extends Migration
             $table->date('tanggal_lahir');
             $table->unsignedBigInteger('detailsiswa_id')->nullable();
             $table->unsignedBigInteger('berkas_id')->nullable();
-            $table->unsignedBigInteger('rapor_id');
-            $table->unsignedBigInteger('sistembayar_id');
+            $table->unsignedBigInteger('rapor_id')->nullable();
+            $table->unsignedBigInteger('sistembayar_id')->nullable();
             $table->timestamps();
         });
     }
