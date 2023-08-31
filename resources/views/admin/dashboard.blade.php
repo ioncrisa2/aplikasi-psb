@@ -8,10 +8,9 @@
             <div class="d-flex align-items-end row">
                 <div class="col-sm-4">
 
-
                     <x-dashboard-card
                         title="Total Siswa Terdaftar" detail="siswa"
-                        item="20 orang" icon="{{ asset('assets/img/icons/unicons/cc-success.png') }}"
+                        item="{{$totalSiswa}} orang" icon="{{ asset('assets/img/icons/unicons/cc-success.png') }}"
                     />
 
                 </div>
