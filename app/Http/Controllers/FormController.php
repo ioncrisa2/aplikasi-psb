@@ -11,19 +11,19 @@ use App\Models\Sekolah;
 use App\Models\OrangTua;
 use App\Models\DetailSiswa;
 use App\Models\SistemBayar;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use App\Http\Requests\DataSiswa;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
 
 class FormController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         return view('forms.index');
     }
 
-    public function jenjangInput(Request $request)
+    public function jenjangInput(Request $request): RedirectResponse
     {
         if (isset($request->jenjang)) {
             session(['jenjang' => $request->jenjang]);
@@ -32,28 +32,28 @@ class FormController extends Controller
         return redirect()->route('identitas-siswa');
     }
 
-    public function dataSiswa()
+    public function dataSiswa(): View
     {
         return view('forms.student-data');
     }
 
-    public function uploadDataSiswa(Request $request): mixed
+    public function uploadDataSiswa(Request $request): RedirectResponse
     {
         $request->validate([
-            'email' => 'required',
-            'nama_lengkap' => 'required',
-            'jenis_kelamin' => 'required',
-            'kebutuhan_khusus' => 'required',
-            'tempat_lahir' => 'required',
-            'tanggal_lahir' => 'required',
-            'nama_sekolah' => 'required',
-            'alamat_sekolah' => 'required',
-            'no_tlp_sekolah' => 'required',
-            'nama_orangtua' => 'required',
-            'tlp_orangtua' => 'required',
-            'alamat_rumah' => 'required',
-            'akta_kk' => 'required',
-            'kriteria' => 'required'
+            'email'             => 'required',
+            'nama_lengkap'      => 'required',
+            'jenis_kelamin'     => 'required',
+            'kebutuhan_khusus'  => 'required',
+            'tempat_lahir'      => 'required',
+            'tanggal_lahir'     => 'required',
+            'nama_sekolah'      => 'required',
+            'alamat_sekolah'    => 'required',
+            'no_tlp_sekolah'    => 'required',
+            'nama_orangtua'     => 'required',
+            'tlp_orangtua'      => 'required',
+            'alamat_rumah'      => 'required',
+            'akta_kk'           => 'required',
+            'kriteria'          => 'required'
         ]);
 
         if ($request->file('akta_kk')) {
@@ -105,12 +105,12 @@ class FormController extends Controller
         return redirect()->route('upload-rapot');
     }
 
-    public function uploadRapot()
+    public function uploadRapot(): View
     {
         return view('forms.report-upload');
     }
 
-    public function uploadDataRapot(Request $request)
+    public function uploadDataRapot(Request $request): RedirectResponse
     {
         $request->validate(['rapot' => 'required']);
 
@@ -134,7 +134,7 @@ class FormController extends Controller
         return redirect()->route('detail-biaya');
     }
 
-    public function detailBiaya()
+    public function detailBiaya(): View
     {
         $dpp = DPP::where('jenjang_id', session()->get('jenjang'))->first();
         $bmp = DB::select("SELECT * FROM bmp WHERE jenjang_id = ?", [session()->get('jenjang')]);
@@ -155,7 +155,7 @@ class FormController extends Controller
         ]);
     }
 
-    public function sistemBayar()
+    public function sistemBayar(): View
     {
         $sistemBayar = SistemBayar::all();
 
@@ -164,7 +164,7 @@ class FormController extends Controller
         ]);
     }
 
-    public function uploadSistemBayar(Request $request)
+    public function uploadSistemBayar(Request $request): RedirectResponse
     {
         $request->validate(['sistembayar' => 'required']);
 
@@ -175,12 +175,12 @@ class FormController extends Controller
         return redirect()->route('verifikasi-form');
     }
 
-    public function verifikasiFormulir()
+    public function verifikasiFormulir(): View
     {
         return view('forms.verification-form');
     }
 
-    public function done()
+    public function done(): View
     {
         return view('forms.index');
     }
