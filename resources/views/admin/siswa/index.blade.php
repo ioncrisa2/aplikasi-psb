@@ -9,25 +9,27 @@
                 </div>
                 <div class="container">
                     <div class="table-responsive text-nowrap mb-4">
-                        <table class="table table-sm table-bordered" id="table">
+                        <table class="table table-lg table-bordered" id="table">
                             <thead>
                                 <tr>
-                                    <th class="text-center" width="20%">Nama Siswa</th>
-                                    <th class="text-center" width="20%">Jenjang - Jurusan</th>
-                                    <th class="text-center" width="20%">Sekolah Asal</th>
-                                    <th class="text-center" width="20%">Gender</th>
-                                    <th class="text-center" width="20%">Action</th>
+                                    <th class="text-center">Nama Siswa</th>
+                                    <th class="text-center">Sekolah Asal</th>
+                                    <th class="text-center">Gender</th>
+                                    <th class="text-center">Action</th>
 
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($siswa as $key => $value)
                                     <tr>
-                                        <td class="text-center">{{ $value->nama }}</td>
-                                        <td class="text-center">{{ $value->nama_jenjang }} {{ $value->jurusan ? ' - '.$value->jurusan : '' }}</td>
-                                        <td class="text-center">{{ $value->asal_sekolah }}</td>
-                                        <td class="text-center">{{ $value->gender }}</td>
-                                        <td></td>
+                                        <td class="text-center">{{ $value->nama_lengkap }}</td>
+                                        <td class="text-center">{{ $value->detail->sekolah->asal_sekolah }}</td>
+                                        <td class="text-center">{{ $value->jenis_kelamin }}</td>
+                                        <td>
+                                            <div class="d-flex justify-content-center">
+                                                <a href="{{route('siswa.detail',['siswa' => $value->id])}}" class="btn btn-link">Detail</a>
+                                            </div>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -45,7 +47,7 @@
             const table = document.getElementById("table");
             const jenjangFilter = document.getElementById("jenjangFilter");
 
-            const dataTable = new DataTable(table, {
+            const dataTable = new DataTable(document.getElementById("table"), {
                 searching: true
             });
 

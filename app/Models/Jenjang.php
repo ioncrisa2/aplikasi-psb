@@ -33,4 +33,9 @@ class Jenjang extends Model
     {
         return $this->belongsTo(Kriteria::class);
     }
+
+    public function siswa(): BelongsTo
+    {
+        return $this->belongsTo(Siswa::class,'jenjang_id');
+    }
 }

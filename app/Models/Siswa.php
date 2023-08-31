@@ -18,8 +18,6 @@ class Siswa extends Model
         'detailsiswa_id', 'berkas_id', 'rapor_id', 'sistembayar_id'
     ];
 
-    protected $with = ['detail', 'berkas', 'rapor', 'sistemBayar'];
-
     public function detail(): HasOne
     {
         return $this->hasOne(DetailSiswa::class,'id');
@@ -38,5 +36,10 @@ class Siswa extends Model
     public function sistemBayar(): HasOne
     {
         return $this->hasOne(SistemBayar::class,'id');
+    }
+
+    public function jenjang(): HasOne
+    {
+        return $this->hasOne(Jenjang::class,'jenjang_id');
     }
 }

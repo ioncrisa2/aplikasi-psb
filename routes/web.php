@@ -21,27 +21,21 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FormController::class,'index']);
 Route::post('/jenjang',[FormController::class,'jenjangInput'])->name('jenjang-input');
-
 Route::get('identitas-siswa',[FormController::class,'dataSiswa'])->name('identitas-siswa');
 Route::post('identitas-siswa',[FormController::class,'uploadDataSiswa'])->name('identitas-siswa.upload');
-
 Route::get('upload-rapot',[FormController::class,'uploadRapot'])->name('upload-rapot');
 Route::post('upload-data-rapot',[FormController::class,'uploadDataRapot'])->name('upload-rapot.upload');
-
 Route::get('detail-biaya',[FormController::class,'detailBiaya'])->name('detail-biaya');
-
 Route::get('sistem-bayar',[FormController::class,'sistemBayar'])->name('sistem-bayar');
 Route::post('sistem-bayar', [FormController::class,'uploadSistemBayar'])->name('sistem-bayar.upload');
-
 Route::get('verifikasi-form',[FormController::class,'verifikasiFormulir'])->name('verifikasi-form');
-
 Route::get('done',[FormController::class,'done'])->name('done');
-
 Route::group(['middleware' => 'auth'], function() {
     //route dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('siswa',[SiswaController::class,'index'])->name('siswa');
-
+    Route::get('siswa/{siswa}',[SiswaController::class,'show'])->name('siswa.detail');
+    //route biaya
     Route::prefix('biaya')->group(function(){
         Route::get('perlengkapan', [PerlengkapanController::class,'index'])->name('perlengkapan.index');
         Route::get('perlengkapan/create',[PerlengkapanController::class,'create'])->name('perlengkapan.create');
@@ -64,7 +58,5 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('sistem-bayar/{sistembayar}',[SistemBayarController::class,'edit'])->name('sistem-bayar.edit');
         Route::put('sistem-bayar/{sistembayar}',[SistemBayarController::class,'update'])->name('sistem-bayar.update');
 
-
     });
-
 });

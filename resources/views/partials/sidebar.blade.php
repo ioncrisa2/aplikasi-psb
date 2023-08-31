@@ -29,29 +29,33 @@
             </a>
         </li>
 
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle {{ request()->is('biaya*') ? 'active' : '' }}">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Biaya</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item {{ request()->is('biaya/perlengkapan') ? 'active' : '' }}">
-                    <a href="{{ route('perlengkapan.index') }}" class="menu-link">
-                        <div data-i18n="Account">Biaya Perlengkapan</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ request()->is('biaya/dana-pendidikan') ? 'active' : '' }}">
-                    <a href="{{ route('dana-pendidikan.index') }}" class="menu-link">
-                        <div data-i18n="Notifications">Dana Partisipasi Pendidikan</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ request()->is('biaya/sistem-bayar') ? 'active' : '' }}">
-                    <a href="{{ route('sistem-bayar.index') }}" class="menu-link">
-                        <div data-i18n="Connections">Sistem Bayar</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
+        @if(auth()->user()->jenjang === 'admin')
+
+            <li class="menu-item">
+                <a href="javascript:void(0);" class="menu-link menu-toggle {{ request()->is('biaya*') ? 'active' : '' }}">
+                    <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                    <div data-i18n="Account Settings">Biaya</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {{ request()->is('biaya/perlengkapan') ? 'active' : '' }}">
+                        <a href="{{ route('perlengkapan.index') }}" class="menu-link">
+                            <div data-i18n="Account">Biaya Perlengkapan</div>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ request()->is('biaya/dana-pendidikan') ? 'active' : '' }}">
+                        <a href="{{ route('dana-pendidikan.index') }}" class="menu-link">
+                            <div data-i18n="Notifications">Dana Partisipasi Pendidikan</div>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ request()->is('biaya/sistem-bayar') ? 'active' : '' }}">
+                        <a href="{{ route('sistem-bayar.index') }}" class="menu-link">
+                            <div data-i18n="Connections">Sistem Bayar</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            @endif
 
 
     </ul>

@@ -21,11 +21,11 @@ class UserSeeder extends Seeder
         $usersmk = new User();
         $usersu= new User();
 
-        $usertk->name = 'admintk';
-        $usersd->name = 'adminsd';
-        $usersmp->name = 'adminsmp';
-        $usersma->name = 'adminsma';
-        $usersmk->name = 'adminsmk';
+        $usertk->name = 'tk';
+        $usersd->name = 'sd';
+        $usersmp->name = 'smp';
+        $usersma->name = 'sma';
+        $usersmk->name = 'smk';
         $usersu->name = 'admin';
 
         $usertk->email = 'admintk@mail.com';
