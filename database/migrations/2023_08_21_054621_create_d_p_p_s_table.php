@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('jenjang_id');
             $table->double('harga');
             $table->double('diskon');
+            $table->double('diskon_tambahan');
             $table->timestamps();
         });
     }

@@ -19,11 +19,19 @@ return new class extends Migration
             $table->boolean('kebutuhan_khusus')->default(false);
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
-            $table->unsignedBigInteger('detailsiswa_id')->nullable();
-            $table->unsignedBigInteger('berkas_id')->nullable();
-            $table->unsignedBigInteger('rapor_id')->nullable();
-            $table->unsignedBigInteger('sistembayar_id')->nullable();
+            $table->text('alamat_rumah');
+            $table->string('telepon');
+            $table->string('asal_sekolah');
+            $table->text('alamat_sekolah');
+            $table->string('telepon_sekolah');
+            $table->string('nama_orangtua');
+            $table->string('telepon_orangtua');
+            $table->string('berkas_kk');
+            $table->string('rapot');
+            $table->unsignedBigInteger('totalbiaya_id');
             $table->timestamps();
+
+            $table->foreign('totalbiaya_id')->references('id')->on('total_biaya');
         });
     }
 
