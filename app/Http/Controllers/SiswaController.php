@@ -13,15 +13,13 @@ class SiswaController extends Controller
     public function index(Request $request): View
     {
         $jenjang = $this->getJenjang();
-        $siswa = Siswa::with(['detail'])->where('jenjang_id',$jenjang->jenjang_id)->get();
+        $siswa = Siswa::where('jenjang_id','=',$jenjang->jenjang_id)->get();
         return view('admin.siswa.index', compact('siswa'));
     }
 
     public function show(Siswa $siswa): View
     {
-        $jenjang = $this->getJenjang();
-
-        return view('admin.siswa.detail',compact('jenjang'));
+        return view('admin.siswa.detail',compact('data'));
     }
 
     protected function getJenjang()

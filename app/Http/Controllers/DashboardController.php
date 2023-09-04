@@ -3,13 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Siswa;
+use App\Models\Jenjang;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $totalSiswa = Siswa::count();
+        $jenjang = $this->getJenjang();
+        $totalSiswa = Siswa::where('jenjang_id','=',$jenjang->jenjang_id)->count();
         return view('admin.dashboard',compact('totalSiswa'));
+    }
+
+    protected function getJenjang()
+    {
+        $jenjang = auth()->user()->level;
+        return Jenjang::where('nama','=',$jenjang)->first();
     }
 }

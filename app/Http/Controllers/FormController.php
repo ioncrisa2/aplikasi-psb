@@ -11,6 +11,7 @@ use App\Models\Sekolah;
 use App\Models\OrangTua;
 use App\Models\DetailSiswa;
 use App\Models\SistemBayar;
+use App\Models\TotalBiaya;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +19,7 @@ use Illuminate\View\View;
 
 class FormController extends Controller
 {
-    public function index(Request $request): View
+    public function index(): View
     {
         return view('forms.index');
     }
@@ -56,6 +57,8 @@ class FormController extends Controller
             'kriteria'          => 'required'
         ]);
 
+        $siswa = new Siswa();
+
         if ($request->file('akta_kk')) {
             $berkas = $request->file('akta_kk');
             $originalName = $berkas->getClientOriginalName();
@@ -64,39 +67,21 @@ class FormController extends Controller
             $newFileName = $timestamp . '-' . $originalName;
 
             $berkas->move(public_path('berkas'), $newFileName);
-            $saveBerkas = new Berkas();
-            $saveBerkas->nama_file = $newFileName;
-            $saveBerkas->save();
+            $siswa->berkas_kk = $newFileName;
         }
 
-
-        $orangtua = new OrangTua();
-        $orangtua->nama_orangtua = $request->nama_orangtua;
-        $orangtua->tlpn_orangtua = $request->tlp_orangtua;
-        $orangtua->save();
-
-        $sekolahAsal = new Sekolah();
-        $sekolahAsal->asal_sekolah = $request->nama_sekolah;
-        $sekolahAsal->alamat_sekolah = $request->alamat_sekolah;
-        $sekolahAsal->telepon = $request->tlp_orangtua;
-        $sekolahAsal->save();
-
-        $detailSiswa = new DetailSiswa();
-        $detailSiswa->orangtua_id = $orangtua->id;
-        $detailSiswa->sekolah_id = $sekolahAsal->id;
-        $detailSiswa->alamat_rumah = $request->alamat_rumah;
-        $detailSiswa->telepon = $request->tlp_orangtua;
-        $detailSiswa->save();
-
-        $siswa = new Siswa();
         $siswa->email = $request->email;
         $siswa->nama_lengkap = $request->nama_lengkap;
         $siswa->jenis_kelamin = $request->jenis_kelamin;
         $siswa->kebutuhan_khusus = $request->kebutuhan_khusus;
         $siswa->tempat_lahir = $request->tempat_lahir;
         $siswa->tanggal_lahir = $request->tanggal_lahir;
-        $siswa->berkas_id = $saveBerkas->id;
-        $siswa->detailsiswa_id = $detailSiswa->id;
+        $siswa->alamat_rumah = $request->alamat_rumah;
+        $siswa->asal_sekolah = $request->nama_sekolah;
+        $siswa->alamat_sekolah = $request->alamat_sekolah;
+        $siswa->telepon_sekolah = $request->no_tlp_sekolah;
+        $siswa->nama_orangtua = $request->nama_orangtua;
+        $siswa->telepon_orangtua = $request->tlp_orangtua;
         $siswa->jenjang_id = session()->get('jenjang');
         $siswa->save();
 
@@ -123,12 +108,8 @@ class FormController extends Controller
             $fileRapor->move(public_path('rapot'), $newFileName);
         }
 
-        $rapor = new Rapor();
-        $rapor->file_rapor = $newFileName;
-        $rapor->save();
-
         $siswa = Siswa::findOrFail(session()->get('siswa_id'));
-        $siswa->rapor_id = $rapor->id;
+        $siswa->rapot = $newFileName;
         $siswa->save();
 
         return redirect()->route('detail-biaya');
@@ -155,9 +136,23 @@ class FormController extends Controller
         ]);
     }
 
+    public function prosesDetailBiaya(Request $request)
+    {
+        $totalbiaya = new TotalBiaya();
+        $totalbiaya->total = $request->total;
+        $totalbiaya->save();
+
+        $siswa = Siswa::findOrFail(session()->get('siswa_id'));
+        $siswa->totalbiaya_id = $totalbiaya->id;
+        $siswa->save();
+
+        return redirect()->route('sistem-bayar');
+    }
+
     public function sistemBayar(): View
     {
         $sistemBayar = SistemBayar::all();
+        // dd($sistemBayar);
 
         return view('forms.special-payment-method', [
             'sistembayar' => $sistemBayar,
@@ -182,6 +177,11 @@ class FormController extends Controller
 
     public function done(): View
     {
-        return view('forms.index');
+        return view('forms.done');
+    }
+
+    public function prosesDone()
+    {
+        return redirect();
     }
 }

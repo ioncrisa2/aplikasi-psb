@@ -10,7 +10,7 @@
 
                     <x-dashboard-card
                         title="Total Siswa Terdaftar" detail="siswa"
-                        item="{{$totalSiswa}} orang" icon="{{ asset('assets/img/icons/unicons/cc-success.png') }}"
+                        item="{{ $totalSiswa ? $totalSiswa.' Orang' : 'Belum Ada' }}" icon="{{ asset('assets/img/icons/unicons/cc-success.png') }}"
                     />
 
                 </div>

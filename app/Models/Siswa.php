@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Siswa extends Model
 {
@@ -18,28 +21,47 @@ class Siswa extends Model
         'detailsiswa_id', 'berkas_id', 'rapor_id', 'sistembayar_id'
     ];
 
-    public function detail(): HasOne
+    protected $with = ['totalBiaya','sistemBayar','jenjang','VirtualAccount'];
+
+    public function totalBiaya(): HasOne
     {
-        return $this->hasOne(DetailSiswa::class,'id');
+        return $this->hasOne(TotalBiaya::class,'id');
     }
 
-    public function berkas(): HasOne
+    public function sistemBayar(): BelongsTo
     {
-        return $this->hasOne(Berkas::class,'id');
-    }
-
-    public function rapor(): HasOne
-    {
-        return $this->hasOne(Rapor::class,'id');
-    }
-
-    public function sistemBayar(): HasOne
-    {
-        return $this->hasOne(SistemBayar::class,'id');
+        return $this->belongsTo(SistemBayar::class,'sistembayar_id');
     }
 
     public function jenjang(): HasOne
     {
         return $this->hasOne(Jenjang::class,'jenjang_id');
+    }
+
+    public function VirtualAccount(): HasMany
+    {
+        return $this->hasMany(VirtualAccount::class,'siswa_id');
+    }
+
+    protected function tanggalLahir(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value){
+                $date = Carbon::parse($value);
+                $date->setLocale('id');
+                return $date->translatedFormat('d F Y');
+            },
+        );
+    }
+
+    protected function createAt(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value){
+                $date = Carbon::parse($value);
+                $date->setLocale('id');
+                return $date->translatedFormat('d F Y');
+            },
+        );
     }
 }

@@ -4,23 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Rapor extends Model
+class VirtualAccount extends Model
 {
     use HasFactory;
 
-    protected $table = 'rapor';
-
-    protected $fillable = [
-        'file_rapor'
-    ];
+    protected $fillable = ['siswa_id','number'];
 
     public function siswa(): BelongsTo
     {
-        return $this->belongsTo(Siswa::class,'rapor_id');
+        return $this->belongsTo(Siswa::class,'id');
     }
-
 
 }

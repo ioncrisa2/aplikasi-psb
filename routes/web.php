@@ -1,12 +1,14 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DPPController;
 use App\Http\Controllers\FormController;
-use App\Http\Controllers\PerlengkapanController;
-use App\Http\Controllers\SistemBayarController;
 use App\Http\Controllers\SiswaController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SistemBayarController;
+use App\Http\Controllers\PerlengkapanController;
+use App\Http\Controllers\VirtualAccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,15 +28,22 @@ Route::post('identitas-siswa',[FormController::class,'uploadDataSiswa'])->name('
 Route::get('upload-rapot',[FormController::class,'uploadRapot'])->name('upload-rapot');
 Route::post('upload-data-rapot',[FormController::class,'uploadDataRapot'])->name('upload-rapot.upload');
 Route::get('detail-biaya',[FormController::class,'detailBiaya'])->name('detail-biaya');
+Route::post('detail-biaya',[FormController::class,'prosesDetailBiaya'])->name('proses.detail-biaya');
 Route::get('sistem-bayar',[FormController::class,'sistemBayar'])->name('sistem-bayar');
 Route::post('sistem-bayar', [FormController::class,'uploadSistemBayar'])->name('sistem-bayar.upload');
 Route::get('verifikasi-form',[FormController::class,'verifikasiFormulir'])->name('verifikasi-form');
 Route::get('done',[FormController::class,'done'])->name('done');
+Route::post('done',[FormController::class,'prosesDone'])->name('done.done');
 Route::group(['middleware' => 'auth'], function() {
     //route dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('siswa',[SiswaController::class,'index'])->name('siswa');
     Route::get('siswa/{siswa}',[SiswaController::class,'show'])->name('siswa.detail');
+    // route profile
+    Route::get('profile',[ProfileController::class,'index'])->name('profile');
+    Route::post('profile/update',[ProfileController::class,'updatePassword'])->name('profile.update');
+    // Generate VA
+    Route::post('generate-va',VirtualAccountController::class)->name('generate-va');
     //route biaya
     Route::prefix('biaya')->group(function(){
         Route::get('perlengkapan', [PerlengkapanController::class,'index'])->name('perlengkapan.index');

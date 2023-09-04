@@ -13,12 +13,16 @@ class SistemBayar extends Model
 
     protected $table = 'sistem_bayar';
 
+    protected $primaryKey = 'sistembayar_id';
+
     protected $fillable = [
-        'skema','keterangan'
+        'sistembayar_id','skema','keterangan'
     ];
 
-    public function siswa(): BelongsTo
+    protected $with = ['siswa'];
+
+    public function siswa(): hasOne
     {
-        return $this->belongsTo(Siswa::class,'sistembayar_id');
+        return $this->hasOne(Siswa::class,'sistembayar_id');
     }
 }

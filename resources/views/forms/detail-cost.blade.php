@@ -1,7 +1,7 @@
 @extends('layouts.front.app')
 
 @section('content')
-    <form class="appointment-form" id="appointment-form">
+    <form class="appointment-form" id="appointment-form" method="POSt" action="{{ route('proses.detail-biaya') }}">
         @csrf
 
         <img src="{{ asset('logo-sekolah.png') }}" alt="logo sekolah" width="200">
@@ -54,6 +54,8 @@
             </tr>
         </table>
 
+        <input type="hidden" name="total" value="{{ $totalHarga }}" />
+
         <p class="text-dark mb-2 mt-1">
             Jika pendaftaran diterima, pembayaran akan dilanjutkan melalui BCA Virtual Account, Bapak / Ibu akan menerima
             pesan Whatsapp yang berisi Nomor VA Atas Nama Calon Peserta Didik.
@@ -61,7 +63,7 @@
 
 
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <a class="btn btn-primary" href="{{ route('sistem-bayar') }}">Lanjutkan</a>
+            <button class="btn btn-primary" type="submit">Lanjutkan</button>
         </div>
     </form>
 @endsection

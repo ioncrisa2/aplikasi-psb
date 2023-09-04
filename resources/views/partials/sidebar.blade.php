@@ -29,6 +29,13 @@
             </a>
         </li>
 
+        <li class="menu-item mb-2 {{ request()->is('profile') ? 'active' : '' }}">
+            <a href="{{ route('profile') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Analytics">User Profile</div>
+            </a>
+        </li>
+
         @if(auth()->user()->jenjang === 'admin')
 
             <li class="menu-item">

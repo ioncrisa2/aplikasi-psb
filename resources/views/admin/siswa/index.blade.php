@@ -23,7 +23,7 @@
                                 @foreach($siswa as $key => $value)
                                     <tr>
                                         <td class="text-center">{{ $value->nama_lengkap }}</td>
-                                        <td class="text-center">{{ $value->detail->sekolah->asal_sekolah }}</td>
+                                        <td class="text-center">{{ $value->asal_sekolah }}</td>
                                         <td class="text-center">{{ $value->jenis_kelamin }}</td>
                                         <td>
                                             <div class="d-flex justify-content-center">
