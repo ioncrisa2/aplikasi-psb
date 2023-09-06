@@ -14,7 +14,7 @@ class DPP extends Model
     protected $table = 'dpp';
 
     protected $fillable = [
-        'jenjang_id','harga','diskon'
+        'jenjang_id','harga','diskon','diskon_tambahan'
     ];
 
     public function jenjang(): BelongsTo

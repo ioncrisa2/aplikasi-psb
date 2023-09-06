@@ -22,9 +22,9 @@
                             <tbody>
                                 @foreach($siswa as $key => $value)
                                     <tr>
-                                        <td class="text-center">{{ $value->nama_lengkap }}</td>
+                                        <td class="text-center">{{ $value->nama_siswa }}</td>
                                         <td class="text-center">{{ $value->asal_sekolah }}</td>
-                                        <td class="text-center">{{ $value->jenis_kelamin }}</td>
+                                        <td class="text-center">{{ $value->gender }}</td>
                                         <td>
                                             <div class="d-flex justify-content-center">
                                                 <a href="{{route('siswa.detail',['siswa' => $value->id])}}" class="btn btn-link">Detail</a>

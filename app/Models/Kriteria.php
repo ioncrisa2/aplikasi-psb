@@ -13,7 +13,7 @@ class Kriteria extends Model
     protected $table = 'kriteria';
 
     protected $fillable = [
-        'jenjang_id','nama'
+        'kriteria_id','kriteria'
     ];
 
     public function jenjang(): HasOne

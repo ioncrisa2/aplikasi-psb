@@ -29,14 +29,7 @@
             </a>
         </li>
 
-        <li class="menu-item mb-2 {{ request()->is('profile') ? 'active' : '' }}">
-            <a href="{{ route('profile') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">User Profile</div>
-            </a>
-        </li>
-
-        @if(auth()->user()->jenjang === 'admin')
+        @if(auth()->user()->level === 'su')
 
             <li class="menu-item">
                 <a href="javascript:void(0);" class="menu-link menu-toggle {{ request()->is('biaya*') ? 'active' : '' }}">
@@ -63,6 +56,13 @@
             </li>
 
             @endif
+
+            <li class="menu-item mb-2 {{ request()->is('profile') ? 'active' : '' }}">
+                <a href="{{ route('profile') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                    <div data-i18n="Analytics">User Profile</div>
+                </a>
+            </li>
 
 
     </ul>

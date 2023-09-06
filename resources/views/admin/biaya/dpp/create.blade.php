@@ -18,26 +18,6 @@
                     <form action="{{ route('dana-pendidikan.store') }}" method="POST">
                         @csrf
                         <div class="mb-3">
-                            <label for="harga" class="form-label">Nominal Dana Pengembangan Pendidikan</label>
-                            <input type="number" class="form-control @error('harga') is-invalid @enderror" id="harga"
-                                placeholder="nama harga" name="harga" />
-                            @error('harga')
-                                <div class="invalid-feedback" style="display: block">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="diskon" class="form-label">Diskon</label>
-                            <input type="number" class="form-control @error('diskon') is-invalid @enderror" id="diskon"
-                                placeholder="nama diskon" name="diskon" />
-                            @error('diskon')
-                                <div class="invalid-feedback" style="display: block">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
                             <label for="jenjang" class="form-label">Jenjang Sekolah</label>
                             <select class="form-select @error('jenjang') is-invalid @enderror" id="jenjang"
                                 name="jenjang_id" aria-label="Default select example">
@@ -48,6 +28,60 @@
                                 @endforeach
                             </select>
                             @error('jenjang')
+                                <div class="invalid-feedback" style="display: block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="harga" class="form-label">Nominal Dana Pengembangan Pendidikan</label>
+                            <input type="number" class="form-control @error('harga') is-invalid @enderror" id="harga"
+                                placeholder="nama harga" name="harga" />
+                            @error('harga')
+                                <div class="invalid-feedback" style="display: block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="diskon" class="form-label">Diskon</label>
+                                    <input type="number" class="form-control @error('diskon') is-invalid @enderror"
+                                        id="diskon" placeholder="nama diskon" name="diskon" />
+                                    @error('diskon')
+                                        <div class="invalid-feedback" style="display: block">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="diskon" class="form-label">Diskon Tambahan</label>
+                                    <input type="number"
+                                        class="form-control @error('diskon_tambahan') is-invalid @enderror" id="diskon"
+                                        placeholder="diskon tambahan" name="diskon_tambahan" />
+                                    @error('diskon_tambahan')
+                                        <div class="invalid-feedback" style="display: block">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="jenjang" class="form-label">Kriteria Siswa</label>
+                            <select class="form-select @error('kriteria') is-invalid @enderror" id="kriteria"
+                                name="kriteria_id" aria-label="Kriteria Siswa">
+                                <option selected="">---Pilih Kriteria Siswa---</option>
+                                @foreach ($kriteria as $data)
+                                    <option value="{{ $data->kriteria_id }}">{{ $data->kriteria }}</option>
+                                @endforeach
+                            </select>
+                            @error('kriteria')
                                 <div class="invalid-feedback" style="display: block">
                                     {{ $message }}
                                 </div>

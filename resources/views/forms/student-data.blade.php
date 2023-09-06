@@ -10,7 +10,7 @@
 
         <div class="form-group-1">
             <label for="email" class="text-dark">Alamat Email</label>
-            <input type="text" class="form-control @error('email') is-invalid @enderror p-0 m-0" name="email"
+            <input type="text" class="form-control mb-3 @error('email') is-invalid @enderror p-0 m-0" name="email"
                 id="email" />
             @error('email')
                 <div class="invalid-feedback" style="display: block">
@@ -18,7 +18,7 @@
                 </div>
             @enderror
 
-            <label for="nama_lengkap" class="text-dark">Nama Lengkap Sesuai Ijasah</label>
+            <label for="nama_lengkap" class="text-dark">Nama Lengkap Sesuai Ijazah</label>
             <input type="text" class="form-control @error('nama_lengkap') is-invalid @enderror" name="nama_lengkap" id="nama" />
             @error('nama_lengkap')
                 <div class="invalid-feedback" style="display: block">

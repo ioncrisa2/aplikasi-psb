@@ -85,7 +85,10 @@ class FormController extends Controller
         $siswa->jenjang_id = session()->get('jenjang');
         $siswa->save();
 
-        session(['siswa_id' => $siswa->id]);
+        session([
+            'siswa_id' => $siswa->id,
+            'kriteria' => $request->kriteria
+        ]);
 
         return redirect()->route('upload-rapot');
     }

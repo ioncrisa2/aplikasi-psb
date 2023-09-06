@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\SistemBayar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SistemBayarController extends Controller
 {
     public function index(Request $request)
     {
-        return view('admin.biaya.sistembayar.index',[
-            'sistembayar' => SistemBayar::all()
-        ]);
+        $sistembayar = DB::table('sistem_bayar')->select('sistembayar_id','skema','keterangan')->get();
+        return view('admin.biaya.sistembayar.index',['sistembayar' => $sistembayar]);
     }
 
     public function create()

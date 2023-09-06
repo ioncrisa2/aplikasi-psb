@@ -16,8 +16,8 @@
                     <table class="table table-bordered" id="table">
                         <thead>
                             <tr>
-                                <th class="text-start" width="30%">Skema</th>
-                                <th class="text-center" width="60%">Deskripsi</th>
+                                <th class="text-center" width="20%">Skema</th>
+                                <th class="text-center" width="70%">Deskripsi</th>
                                 <th class="text-center" width="10%">Option</th>
                             </tr>
                         </thead>
@@ -32,10 +32,10 @@
                                     <td class="text-end">
                                         <div class="btn-group" role="group" aria-label="Default button group">
                                             <a class="dropdown-item text-primary"
-                                                href="{{ route('sistem-bayar.edit', ['sistembayar' => $data->id]) }}"><i
+                                                href="{{ route('sistem-bayar.edit', ['sistembayar' => $data->sistembayar_id]) }}"><i
                                                     class="bx bx-edit-alt me-1"></i> Edit
                                             </a>
-                                            <form action="{{ route('sistem-bayar.destroy', ['sistembayar' => $data->id]) }}"
+                                            <form action="{{ route('sistem-bayar.destroy', ['sistembayar' => $data->sistembayar_id]) }}"
                                                 method="POST">
                                                 @csrf @method('DELETE')
                                                 <button class="dropdown-item text-danger" type="submit"

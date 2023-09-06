@@ -29,11 +29,6 @@ class Jenjang extends Model
         return $this->hasOne(DPP::class,'id');
     }
 
-    public function kriteria(): BelongsTo
-    {
-        return $this->belongsTo(Kriteria::class);
-    }
-
     public function siswa(): BelongsTo
     {
         return $this->belongsTo(Siswa::class,'jenjang_id');

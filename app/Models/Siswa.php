@@ -21,7 +21,7 @@ class Siswa extends Model
         'detailsiswa_id', 'berkas_id', 'rapor_id', 'sistembayar_id'
     ];
 
-    protected $with = ['totalBiaya','sistemBayar','jenjang','VirtualAccount'];
+    // protected $with = ['totalBiaya','sistemBayar','jenjang','VirtualAccount'];
 
     public function totalBiaya(): HasOne
     {
@@ -38,7 +38,7 @@ class Siswa extends Model
         return $this->hasOne(Jenjang::class,'jenjang_id');
     }
 
-    public function VirtualAccount(): HasMany
+    public function virtualAccount(): HasMany
     {
         return $this->hasMany(VirtualAccount::class,'siswa_id');
     }

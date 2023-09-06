@@ -20,7 +20,7 @@
                         <h5 class="card-header d-flex justify-content-between align-items-center">
                             <div class="d-flex justify-content-start align-items-center">
                                 <a class="btn btn-light mr-2" href="{{ route('siswa') }}"><strong>&#8592;</strong></a>
-                                <div>Data Pendaftaran Peserta didik <strong>{{ $siswa->nama_lengkap }}</strong></div>
+                                <div>Data Pendaftaran Peserta didik <strong>{{ $data->nama_lengkap }}</strong></div>
                             </div>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end align-items-center">
                                 <button class="btn btn-dark" type="button"> Print <i class='bx bxs-printer'></i></button>
@@ -32,22 +32,22 @@
                                     <tr class="align-bottom">
                                         <td width="20%">Nama Lengkap siswa</td>
                                         <td widht="5%" class="text-end">:</td>
-                                        <td widht="75%" class="text-start">{{ $siswa->nama_lengkap }}</td>
+                                        <td widht="75%" class="text-start">{{ $data->nama_lengkap }}</td>
                                     </tr>
                                     <tr class="align-bottom">
                                         <td width="20%">Tempat Tanggal Lahir</td>
                                         <td widht="5%" class="text-end">:</td>
-                                        <td widht="75%" class="text-start">{{ $siswa->tempat_lahir }} /
-                                            {{ $siswa->tanggal_lahir }}</td>
+                                        <td widht="75%" class="text-start">{{ $data->tempat_lahir }} /
+                                            {{ $data->tanggal_lahir }}</td>
                                     </tr>
                                     <tr class="align-bottom">
                                         <td width="20%">Jenis Kelamin</td>
                                         <td widht="5%" class="text-end">:</td>
                                         <td widht="75%" class="text-start">
-                                            @if ($siswa->jenis_kelamin == 'Laki-laki')
-                                                <span class="badge bg-primary">{{ $siswa->jenis_kelamin }}</span>
+                                            @if ($data->jenis_kelamin == 'Laki-laki')
+                                                <span class="badge bg-primary">{{ $data->jenis_kelamin }}</span>
                                             @else
-                                                <span class="badge bg-secondary">{{ $siswa->jenis_kelamin }}</span>
+                                                <span class="badge bg-secondary">{{ $data->jenis_kelamin }}</span>
                                             @endif
                                         </td>
                                     </tr>
@@ -55,30 +55,31 @@
                                         <td width="20%">Kebutuhan Khusus</td>
                                         <td widht="5%" class="text-end">:</td>
                                         <td widht="75%" class="text-start">
-                                            {!! $siswa->kebutuhan_khusus
+                                            {!! $data->kebutuhan_khusus
                                                 ? '<span class="badge bg-secondary">Ya</span>'
-                                                : '<span class="badge bg-secondary">Tidak</span>' !!}
+                                                : '<span class="badge bg-secondary">Tidak</span>'
+                                            !!}
                                         </td>
                                     </tr>
                                     <tr class="align-bottom">
                                         <td width="20%">Alamat Rumah</td>
                                         <td widht="5%" class="text-end">:</td>
                                         <td widht="75%" class="text-start">
-                                            {{ $siswa->alamat_rumah }}
+                                            {{ $data->alamat_rumah }}
                                         </td>
                                     </tr>
                                     <tr class="align-bottom">
                                         <td width="20%">Asal Sekolah</td>
                                         <td widht="5%" class="text-end">:</td>
                                         <td widht="75%" class="text-start">
-                                            {{ $siswa->asal_sekolah }}
+                                            {{ $data->asal_sekolah }}
                                         </td>
                                     </tr>
                                     <tr class="align-bottom">
                                         <td width="20%">Alamat Sekolah</td>
                                         <td widht="5%" class="text-end">:</td>
                                         <td widht="75%" class="text-start">
-                                            {{ $siswa->alamat_sekolah }}
+                                            {{ $data->alamat_sekolah }}
                                         </td>
                                     </tr>
                                     </tr>
@@ -86,41 +87,41 @@
                                         <td width="20%">Telepon Sekolah</td>
                                         <td widht="5%" class="text-end">:</td>
                                         <td widht="75%" class="text-start">
-                                            {{ $siswa->telepon_sekolah }}
+                                            {{ $data->telepon_sekolah }}
                                         </td>
                                     </tr>
                                     <tr class="align-bottom">
                                         <td width="20%">Nama Orangtua</td>
                                         <td widht="5%" class="text-end">:</td>
                                         <td widht="75%" class="text-start">
-                                            {{ $siswa->nama_orangtua }}
+                                            {{ $data->nama_orangtua }}
                                         </td>
                                     </tr>
                                     <tr class="align-bottom">
                                         <td width="20%">No Telepon Orang Tua (WA)</td>
                                         <td widht="5%" class="text-end">:</td>
                                         <td widht="75%" class="text-start">
-                                            {{ $siswa->telepon_orangtua }}</td>
+                                            {{ $data->telepon_orangtua }}</td>
                                     </tr>
                                     <tr class="align-bottom">
                                         <td width="20%">Total Biaya Masuk</td>
                                         <td widht="5%" class="text-end">:</td>
                                         <td widht="75%" class="text-start">
-                                            Rp. {{ number_format($siswa->totalBiaya->total) }}
+                                            Rp. {{ number_format($data->totalBiaya->total) }}
                                         </td>
                                     </tr>
                                     <tr class="align-bottom">
                                         <td width="20%">Pilihan Sistem Bayar</td>
                                         <td widht="5%" class="text-end">:</td>
                                         <td widht="75%" class="text-start">
-                                            {{ $siswa->sistemBayar->skema}}
+                                            {{ $data->sistemBayar->skema}}
                                         </td>
                                     </tr>
                                     <tr class="align-bottom">
                                         <td width="20%">Tanggal Pendaftaran</td>
                                         <td widht="5%" class="text-end">:</td>
                                         <td widht="75%" class="text-start">
-                                            {{ $siswa->created_at }}
+                                            {{ $data->created_at }}
                                         </td>
                                     </tr>
                                 </tbody>
@@ -136,15 +137,14 @@
                                 <tbody class="text-center">
                                     <tr>
                                         <td>
-                                            <iframe src="{{ asset("berkas/{$siswa->berkas_kk}") }}" frameborder="0"></iframe>
+                                            <iframe src="{{ asset("berkas/{$data->berkas_kk}") }}" frameborder="0"></iframe>
                                         </td>
                                         <td>
-                                            <iframe src="{{ asset("rapot/{$siswa->rapot}") }}" frameborder="0"></iframe>
+                                            <iframe src="{{ asset("rapot/{$data->rapot}") }}" frameborder="0"></iframe>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-
 
                         </div>
                     </div>
@@ -159,21 +159,21 @@
                         <h5 class="card-header d-flex justify-content-between align-items-center">
                             <div class="d-flex justify-content-start align-items-center">
                                 <a class="btn btn-light mr-2" href="{{ route('siswa') }}"><strong>&#8592;</strong></a>
-                                <div>Daftar Virtual Account Siswa {{ $siswa->nama_lengkap }}</div>
+                                <div>Daftar Virtual Account Siswa {{ $data->nama_lengkap }}</div>
                             </div>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end align-items-center">
-                                @if (!$siswa->VirtualAccount)
+                                @if (!$data->virtualAccount)
                                     <form action="{{ route('generate-va') }}" method="POST">
                                         @csrf
-                                        <input type="hidden" name="jenjang_id" value="{{ $siswa->jenjang_id }}" />
-                                        <input type="hidden" name="nama_siswa" value="{{ $siswa->nama_lengkap }}"/>
+                                        <input type="hidden" name="jenjang_id" value="{{ $data->jenjang_id }}" />
+                                        <input type="hidden" name="nama_siswa" value="{{ $data->nama_lengkap }}"/>
                                         <button class="btn btn-primary me-md-2" type="submit">&#127974; Generate VA</button>
                                     </form>
                                 @endif
                             </div>
                         </h5>
 
-                        @if(!$siswa->VirtualAccount)
+                        @if(!$data->virtualAccount)
                             <div class="mx-auto p-2">
                                 <h4>Belum ada Virtual Account yang di generasi</h4>
                             </div>
