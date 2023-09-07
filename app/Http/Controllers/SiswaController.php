@@ -30,8 +30,12 @@ class SiswaController extends Controller
     public function show(Siswa $siswa): View
     {
         $data = Siswa::with(['totalBiaya','sistemBayar','jenjang','virtualAccount'])->where('id', $siswa->id)->first();
-        // dd($data->nama_lengkap);
         return view('admin.siswa.detail',compact('data'));
+    }
+
+    public function print(Request $request)
+    {
+        return view('admin.siswa.print');
     }
 
     protected function getJenjang()
