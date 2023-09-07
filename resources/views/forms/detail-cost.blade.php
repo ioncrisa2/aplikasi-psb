@@ -41,7 +41,7 @@
         <p class="h3 text-dark text-center mb-4 mt-5 fw-bolder">RINCIAN BIAYA YANG HARUS DIBAYAR</p>
         <table class="table table-borderless text-dark">
             <tr>
-                <th width="75%">DPP Rp. {{ $dpp->harga }} - Potongan {{ $dpp->diskon }}% + 10%</th>
+                <th width="75%">DPP Rp. {{ $dpp->harga }} - Potongan {{ $dpp->diskon }}% + {{ $dpp->diskon_tambahan }}%</th>
                 <td width="25%">Rp {{ number_format($finalDPP) }}</td>
             </tr>
             <tr class="border-bottom">
