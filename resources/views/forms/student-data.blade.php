@@ -125,8 +125,9 @@
             <div class="select-list" style="margin: 0">
                 <select class="form-select custom-select" name="kriteria" id="kriteria">
                     <option selected value="">---Kriteria Peserta Didik---</option>
-                    <option value="1">Berasal dari Sekolah Methodist 2</option>
-                    <option value="2">Luar Sekolah Methodist 2</option>
+                    @foreach($kriteria as $key => $value)
+                        <option value="{{ $value->kriteria_id }}">{{ $value->kriteria }}</option>
+                    @endforeach
                 </select>
             </div>
 
