@@ -12,6 +12,7 @@ use App\Models\OrangTua;
 use App\Models\DetailSiswa;
 use App\Models\SistemBayar;
 use App\Models\TotalBiaya;
+use App\Models\VirtualAccount;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -35,7 +36,9 @@ class FormController extends Controller
 
     public function dataSiswa(): View
     {
-        return view('forms.student-data');
+        return view('forms.student-data',[
+            'kriteria' => DB::table('kriteria')->select('kriteria_id','kriteria')->get()
+        ]);
     }
 
     public function uploadDataSiswa(Request $request): RedirectResponse
@@ -102,7 +105,7 @@ class FormController extends Controller
     {
         $request->validate(['rapot' => 'required']);
 
-        if($request->file('rapot')){
+        if ($request->file('rapot')) {
             $fileRapor = $request->file('rapot');
             $originalName = $fileRapor->getClientOriginalName();
             $newFileName = time() . '-' . $originalName;
@@ -120,22 +123,23 @@ class FormController extends Controller
 
     public function detailBiaya(): View
     {
-        $dpp = DPP::where('jenjang_id', session()->get('jenjang'))->first();
+        $dpp = DPP::where('jenjang_id', session()->get('jenjang'))
+            ->where('kriteria_id',session()->get('kriteria'))
+            ->first();
+        // dd($dpp);
         $bmp = DB::select("SELECT * FROM bmp WHERE jenjang_id = ?", [session()->get('jenjang')]);
         $totalBMP = BMP::where('jenjang_id', session()->get('jenjang'))->sum('harga');
 
-        $diskonDpp1 = ($dpp->diskon / 100) * $dpp->harga;
-        $diskonDpp2 = (10/100) * $diskonDpp1;
-        $totalDiskon = $diskonDpp1 + $diskonDpp2;
-        $finalDpp = $dpp->harga - $totalDiskon;
-        $totalHarga = $finalDpp + $totalBMP;
+        $harga = $dpp->harga;
+        $diskon = $harga - (($dpp->diskon / 100) * $dpp->harga);
+        $final = $diskon - (($dpp->diskon_tambahan / 100) * $diskon);
 
         return view('forms.detail-cost', [
             'data' => $bmp,
             'total' => $totalBMP,
             'dpp' => $dpp,
-            'finalDPP' => $finalDpp,
-            'totalHarga' => $totalHarga
+            'finalDPP' => $final,
+            'totalHarga' => $final + $totalBMP
         ]);
     }
 
@@ -166,12 +170,58 @@ class FormController extends Controller
     {
         $request->validate(['sistembayar' => 'required']);
 
+        $basedVA = '52799';
+        $year = date('Y');
+
+        $va = DB::table('virtual_accounts')->select('id', 'siswa_id', 'number')->get();
+        $sb = DB::table('sistem_bayar')->select('sistembayar_id', 'skema')->where('sistembayar_id', '=', $request->sistembayar)->first();
+
         $siswa = Siswa::findOrFail(session()->get('siswa_id'));
+
         $siswa->sistembayar_id = $request->sistembayar;
         $siswa->save();
 
+        $query = DB::table('siswa')
+            ->join('sistem_bayar', 'sistem_bayar.sistembayar_id', 'siswa.sistembayar_id')
+            ->join('jenjang', 'jenjang.jenjang_id', 'siswa.jenjang_id')
+            ->select(
+                'siswa.nama_lengkap',
+                'sistem_bayar.sistembayar_id',
+                'sistem_bayar.skema',
+                'jenjang.jenjang_id',
+                'jenjang.nama as nama_jenjang'
+            )->where('siswa.id', '=', $siswa->id)->first();
+
+        $tingkatan = [
+            1 => '01',
+            2 => '02',
+            3 => '03',
+            4 => '04',
+            5 => '05',
+            6 => '05',
+        ][$query->jenjang_id] ?? '00';
+
+        $numVA = $query->sistembayar_id; // Number of virtual accounts to generate
+        $virtualAccounts = [];
+
+        for ($i = 0; $i < $numVA; $i++) {
+            $lastVA = end($virtualAccounts) ?: ($va->isEmpty() ? '000' : $va->last()->number);
+            $nourut = $this->incrementUrut($lastVA);
+            $VAccount = "$basedVA$year$tingkatan$nourut";
+            $virtualAccounts[] = $VAccount;
+        }
+        // Save virtual accounts to the database
+        foreach ($virtualAccounts as $account) {
+            VirtualAccount::create([
+                'siswa_id' => $siswa->id,
+                'number' => $account
+            ]);
+        }
+
         return redirect()->route('verifikasi-form');
     }
+
+
 
     public function verifikasiFormulir(): View
     {
@@ -185,6 +235,13 @@ class FormController extends Controller
 
     public function prosesDone()
     {
-        return redirect();
+        return redirect('/');
+    }
+
+    protected function incrementUrut($str): string
+    {
+        $lastDigit = (int)substr($str, -3);
+        $lastDigit++;
+        return str_pad($lastDigit, 3, '0', STR_PAD_LEFT);
     }
 }
