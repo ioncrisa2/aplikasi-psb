@@ -55,7 +55,7 @@
                     <select name="sistembayar" class="form-select custom-select" id="sistembayar">
                         <option slected value="">--- Pilih sistem bayar ---</option>
                         @foreach ($sistembayar as $key => $value)
-                            <option value="{{ $value->id }}">{{ $value->skema }}</option>
+                            <option value="{{ $value->sistembayar_id }}">{{ $value->skema }}</option>
                         @endforeach
                     </select>
                 </div>
