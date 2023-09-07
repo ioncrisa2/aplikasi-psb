@@ -21,7 +21,7 @@ use App\Http\Controllers\VirtualAccountController;
 |
 */
 
-Route::get('/', [FormController::class,'index']);
+Route::get('/', [FormController::class,'index'])->name('home');
 Route::post('/jenjang',[FormController::class,'jenjangInput'])->name('jenjang-input');
 Route::get('identitas-siswa',[FormController::class,'dataSiswa'])->name('identitas-siswa');
 Route::post('identitas-siswa',[FormController::class,'uploadDataSiswa'])->name('identitas-siswa.upload');
@@ -39,6 +39,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('siswa',[SiswaController::class,'index'])->name('siswa');
     Route::get('siswa/{siswa}',[SiswaController::class,'show'])->name('siswa.detail');
+    Route::get('print',[SiswaController::class,'print'])->name('siswa.print');
     // route profile
     Route::get('profile',[ProfileController::class,'index'])->name('profile');
     Route::post('profile/update',[ProfileController::class,'updatePassword'])->name('profile.update');
